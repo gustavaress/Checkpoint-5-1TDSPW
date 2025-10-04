@@ -1,0 +1,28 @@
+{
+  "funcionarios": [
+    {
+      "id": "1",
+      "nome": "Gustavo Tavares",
+      "cargo": "Administrador",
+      "Setor": "Administrativo",
+      "Turno": "Tarde",
+      "Salário": 11900
+    },
+    {
+      "id": "6a219f4d-5c69-497d-a0f8-2f3a69a1dba8",
+      "nome": "Miguel Henrique",
+      "cargo": "Tech Leader",
+      "Setor": "Desenvolvedor",
+      "Turno": "Manhã",
+      "Salário": 550
+    },
+    {
+      "id": "c4345290-9d95-4292-8f97-d7b91898c48c",
+      "nome": "Maria Silva",
+      "cargo": "Enfermeira",
+      "Setor": "Enfermagem",
+      "Turno": "Noite",
+      "Salário": 8700.92
+    }
+  ]
+}
