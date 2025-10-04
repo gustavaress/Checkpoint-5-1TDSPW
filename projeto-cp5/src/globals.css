@@ -1,0 +1,546 @@
+@import "tailwindcss";
+
+/* Variáveis CSS personalizadas */
+:root {
+  /* Cores */
+  --cor-primaria: #2563eb;
+  --cor-primaria-hover: #1d4ed8; /* blue-700 */
+  --cor-fundo: #ffffff;
+  --cor-sombra: rgba(0, 0, 0, 0.05);
+    /* Novas variáveis para cards */
+  --cor-borda: #e5e7eb;
+  --cor-texto-principal: #1f2937;
+  --cor-texto-secundario: #6b7280;
+  --cor-badge-bg: #dbeafe;
+  --cor-badge-text: #1d4ed8; /* blue-700 */
+  --cor-borda-divisoria: #f3f4f6;
+  --sombra-card: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  /* Novas variáveis para formulário */
+  --cor-overlay: rgba(0, 0, 0, 0.6);
+  --cor-gradient-from: #2563eb;
+  --cor-gradient-to: #1d4ed8;
+  --cor-texto-label: #374151;
+  --cor-borda-input: #e5e7eb;
+  --cor-fundo-input: rgba(249, 250, 251, 0.5);
+  --cor-fundo-input-hover: #ffffff;
+  --cor-botao-secundario: #f3f4f6;
+  --cor-botao-secundario-hover: #e5e7eb;
+  --cor-texto-botao-secundario: #374151;
+  --sombra-formulario: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --sombra-botao: 0 10px 15px -3px rgba(37, 99, 235, 0.25);
+  
+  /* Tipografia */
+  --texto-sm: 0.875rem;
+  --texto-base: 1rem;
+  --texto-lg: 1.125rem;
+  --texto-xl: 1.25rem;
+
+  /* Novas variáveis para rodapé */
+  --cor-fundo-rodape: #f9fafb;
+  --cor-fundo-rodape-gradiente: #ffffff;
+  --cor-borda-rodape: #f3f4f6;
+  --cor-divisoria: #d1d5db;
+}
+
+@layer components {
+  /* =================================
+     Cabecalho
+     ================================= */
+  .cabecalho-container {
+    @apply bg-[var(--cor-fundo)] shadow-sm;
+  }
+
+  .cabecalho-content {
+    @apply mx-auto flex h-16 max-w-6xl items-center justify-between px-6;
+  }
+
+  .logo {
+    @apply text-[20px] font-semibold text-[var(--cor-primaria)] transition-colors hover:text-[var(--cor-primaria-hover)];
+  }
+
+  .nav-menu {
+    @apply flex items-center gap-7;
+  }
+
+  .nav-link {
+    @apply text-sm font-medium leading-none;
+  }
+
+  .nav-link--active {
+    @apply rounded-full bg-[var(--cor-primaria)] px-3 py-1.5 text-white shadow-sm;
+  }
+
+  .nav-link--idle {
+    @apply text-gray-600 transition-colors hover:text-gray-900;
+  }
+
+  /* =================================
+     CardFuncionario
+     ================================= */
+  .card-funcionario {
+    @apply w-full max-w-sm rounded-lg border border-[var(--cor-borda)] bg-[var(--cor-fundo)] p-4 shadow-[var(--sombra-card)];
+  }
+
+  .card-funcionario-header {
+    @apply mb-2 flex items-start justify-between;
+  }
+
+  .card-funcionario-nome {
+    @apply font-semibold text-[var(--cor-texto-principal)];
+  }
+
+  .card-funcionario-cargo {
+    @apply text-sm text-[var(--cor-texto-secundario)];
+  }
+
+  .card-funcionario-badge {
+    @apply rounded-full bg-[var(--cor-badge-bg)] px-2 py-0.5 text-xs text-[var(--cor-badge-text)];
+  }
+
+  .card-funcionario-info {
+    @apply mt-4 space-y-2 border-t border-[var(--cor-borda-divisoria)] pt-4 text-sm text-gray-700;
+  }
+
+  .card-funcionario-info-item {
+    @apply flex items-center gap-2;
+  }
+
+  .card-funcionario-info-icon {
+    @apply text-[var(--cor-texto-secundario)];
+  }
+
+  .card-funcionario-actions {
+    @apply mt-4 flex justify-end gap-2 border-t border-[var(--cor-borda-divisoria)] pt-4;
+  }
+
+  .card-funcionario-btn {
+    @apply text-xs font-medium;
+  }
+
+  .card-funcionario-btn--edit {
+    @apply text-[var(--cor-primaria)] hover:text-[var(--cor-primaria-hover)];
+  }
+
+  .card-funcionario-btn--delete {
+    @apply text-red-600 hover:text-red-800;
+  }
+}
+
+@layer components {
+  /* =================================
+     FormularioEdicao (Modal)
+     ================================= */
+  .modal-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-[var(--cor-overlay)] p-4 backdrop-blur-sm;
+  }
+
+  .modal-container {
+    @apply w-full max-w-lg scale-100 transform rounded-2xl bg-white shadow-[var(--sombra-formulario)] transition-all;
+  }
+
+  .modal-header {
+    @apply rounded-t-2xl bg-gradient-to-r from-[var(--cor-gradient-from)] to-[var(--cor-gradient-to)] p-6;
+  }
+
+  .modal-header-content {
+    @apply flex items-center justify-between;
+  }
+
+  .modal-header-info {
+    @apply flex items-center gap-3;
+  }
+
+  .modal-icon-wrapper {
+    @apply rounded-lg bg-white/20 p-2 font-bold text-white;
+  }
+
+  .modal-title {
+    @apply m-0 text-xl font-bold text-white;
+  }
+
+  .modal-subtitle {
+    @apply m-0 text-sm text-white/80;
+  }
+
+  .modal-close-btn {
+    @apply cursor-pointer rounded-lg border-none bg-transparent p-2 font-bold text-white transition-colors hover:bg-white/10;
+  }
+
+  .form-container {
+    @apply flex flex-col gap-6 p-6;
+  }
+
+  .form-grid {
+    @apply grid grid-cols-1 gap-6;
+  }
+
+  .form-field {
+    @apply flex flex-col gap-2;
+  }
+
+  .form-field-grid {
+    @apply grid grid-cols-2 gap-4;
+  }
+
+  .form-label {
+    @apply flex items-center gap-2 text-sm font-semibold text-[var(--cor-texto-label)];
+  }
+
+  .form-input,
+  .form-select,
+  .form-currency-input {
+    @apply w-full rounded-xl border border-[var(--cor-borda-input)] bg-[var(--cor-fundo-input)] px-4 py-3 text-sm transition-all placeholder:text-gray-400 hover:bg-[var(--cor-fundo-input-hover)] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[var(--cor-gradient-from)];
+  }
+
+  .form-select {
+    @apply cursor-pointer appearance-none;
+  }
+
+  .form-currency-container {
+    @apply relative;
+  }
+
+  .form-currency-symbol {
+    @apply absolute left-4 top-1/2 -translate-y-1/2 font-medium text-gray-500;
+  }
+
+  .form-currency-input {
+    @apply pl-10;
+  }
+
+  .form-helper {
+    @apply mt-1 text-xs text-gray-500;
+  }
+
+  .form-helper-value {
+    @apply font-semibold text-green-600;
+  }
+
+  .form-actions {
+    @apply mt-6 flex justify-end gap-3 border-t border-gray-100 pt-6;
+  }
+
+  .form-button {
+    @apply flex cursor-pointer items-center gap-2 rounded-xl border-none px-6 py-3 text-sm font-semibold transition-all disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .form-button-cancel {
+    @apply bg-[var(--cor-botao-secundario)] text-[var(--cor-texto-botao-secundario)] hover:enabled:bg-[var(--cor-botao-secundario-hover)];
+  }
+
+  .form-button-save {
+    @apply bg-gradient-to-r from-[var(--cor-gradient-from)] to-[var(--cor-gradient-to)] text-white shadow-[var(--sombra-botao)] hover:enabled:from-[var(--cor-gradient-to)] hover:enabled:to-[#1e40af];
+  }
+
+  .loading-spinner {
+    @apply h-4 w-4 animate-spin rounded-full border-2 border-transparent border-t-current;
+  }
+
+  /* =================================
+     Rodape
+     ================================= */
+  .rodape {
+    @apply mt-16 border-t border-[var(--cor-borda-rodape)] bg-gradient-to-r from-[var(--cor-fundo-rodape)] to-[var(--cor-fundo-rodape-gradiente)] shadow-[inset_0_2px_4px_0_rgba(0,0,0,0.05)];
+  }
+
+  .rodape-container {
+    @apply container mx-auto px-6 py-8;
+  }
+
+  .rodape-content {
+    @apply text-center;
+  }
+
+  .rodape-texto-principal {
+    @apply mb-2 font-medium text-gray-700;
+  }
+
+  .rodape-texto-secundario {
+    @apply text-sm text-gray-500;
+  }
+
+  .rodape-divisor {
+    @apply mx-auto mt-4 h-0.5 w-12 bg-gradient-to-r from-transparent via-[var(--cor-divisoria)] to-transparent;
+  }
+
+  /* =================================
+     Páginas Genéricas (Home, Error)
+     ================================= */
+  .page-container {
+    @apply container mx-auto px-4 py-10;
+  }
+
+  .page-section {
+    @apply mb-12 text-center;
+  }
+
+  .content-wrapper {
+    @apply mx-auto max-w-2xl;
+  }
+
+  .page-title {
+    @apply mb-2 text-2xl font-bold text-[var(--cor-primaria)];
+  }
+
+  .page-subtitle {
+    @apply text-gray-600;
+  }
+
+  .card-simple {
+    @apply rounded-lg bg-white p-6 shadow-sm;
+  }
+
+  /* =================================
+     Página de Erro 404
+     ================================= */
+  .pagina-erro {
+    @apply flex min-h-screen items-center justify-center bg-gradient-to-br from-[var(--cor-fundo-rodape)] to-[var(--cor-fundo)];
+  }
+
+  .erro-container {
+    @apply mx-auto max-w-2xl px-6 py-12 text-center;
+  }
+
+  .erro-content {
+    @apply space-y-6;
+  }
+
+  .erro-icon {
+    @apply mb-4 text-6xl;
+  }
+
+  .erro-codigo {
+    @apply mb-4 text-8xl font-bold leading-none text-[var(--cor-primaria)];
+  }
+
+  .erro-titulo {
+    @apply mb-4 text-3xl font-bold text-[var(--cor-texto-principal)];
+  }
+
+  .erro-descricao {
+    @apply mx-auto mb-8 max-w-sm text-lg text-[var(--cor-texto-secundario)];
+  }
+
+  .erro-botao {
+    @apply inline-block rounded-lg bg-[var(--cor-primaria)] px-8 py-3 font-semibold text-white no-underline shadow-[var(--sombra-botao)] transition-all hover:-translate-y-0.5 hover:bg-[var(--cor-primaria-hover)] hover:shadow-lg hover:shadow-blue-500/30;
+  }
+}
+
+/* =================================
+   Formulário de Cadastro - COM @apply
+   ================================= */
+@layer components {
+  .form-cadastro-container {
+    @apply min-h-screen bg-gradient-to-br from-blue-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8;
+  }
+
+  .form-cadastro-content {
+    @apply max-w-2xl mx-auto;
+  }
+
+  .form-cadastro-header {
+    @apply text-center mb-8;
+  }
+
+  .form-cadastro-icon {
+    @apply inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-lg mb-4;
+  }
+
+  .form-cadastro-title {
+    @apply text-3xl font-bold text-gray-900 mb-2;
+  }
+
+  .form-cadastro-subtitle {
+    @apply text-lg text-gray-600 max-w-md mx-auto;
+  }
+
+  .form-cadastro-card {
+    @apply bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100;
+  }
+
+  .form-cadastro-card-header {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4;
+  }
+
+  .form-cadastro-card-header-content {
+    @apply flex items-center space-x-3;
+  }
+
+  .form-cadastro-card-icon {
+    @apply p-2 bg-white/20 rounded-lg;
+  }
+
+  .form-cadastro-card-title {
+    @apply text-xl font-semibold text-white;
+  }
+
+  .form-cadastro-card-subtitle {
+    @apply text-blue-100 text-sm;
+  }
+
+  .form-cadastro-body {
+    @apply p-6 sm:p-8;
+  }
+
+  .form-cadastro-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  }
+
+  .form-cadastro-field {
+    @apply space-y-2;
+  }
+
+  .form-cadastro-field-full {
+    @apply md:col-span-2;
+  }
+
+  .form-cadastro-label {
+    @apply flex items-center text-sm font-semibold text-gray-700;
+  }
+
+  .form-cadastro-label-icon {
+    @apply w-4 h-4 mr-2 text-gray-400;
+  }
+
+  .form-cadastro-input {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50/50 hover:bg-white;
+  }
+
+  .form-cadastro-select {
+    @apply w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50/50 hover:bg-white appearance-none cursor-pointer;
+  }
+
+  .form-cadastro-currency-container {
+    @apply relative;
+  }
+
+  .form-cadastro-currency-symbol {
+    @apply absolute left-4 top-3 text-gray-500 font-medium;
+  }
+
+  .form-cadastro-currency-input {
+    @apply w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-gray-50/50 hover:bg-white;
+  }
+
+  .form-cadastro-helper {
+    @apply text-xs text-gray-500 ml-1;
+  }
+
+  .form-cadastro-helper-value {
+    @apply font-semibold text-green-600;
+  }
+
+  .form-cadastro-actions {
+    @apply flex flex-col sm:flex-row gap-3 justify-end pt-8 mt-6 border-t border-gray-100;
+  }
+
+  .form-cadastro-button {
+    @apply px-6 py-3 text-sm font-semibold rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center space-x-2;
+  }
+
+  .form-cadastro-button-cancel {
+    @apply text-gray-700 bg-gray-100 hover:bg-gray-200 order-2 sm:order-1;
+  }
+
+  .form-cadastro-button-submit {
+    @apply text-white bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg shadow-green-500/25 order-1 sm:order-2 flex-1 sm:flex-none;
+  }
+
+  .form-cadastro-footer {
+    @apply text-center mt-6;
+  }
+
+  .form-cadastro-footer-text {
+    @apply text-sm text-gray-500;
+  }
+
+  .loading-spinner {
+    @apply w-4 h-4 animate-spin;
+  }
+}
+
+/* =================================
+   Página Funcionarios
+   ================================= */
+@layer components {
+  .pagina-funcionarios {
+    @apply container mx-auto px-4 py-8;
+  }
+
+  .pagina-funcionarios-header {
+    @apply flex items-center justify-between mb-6;
+  }
+
+  .pagina-funcionarios-titulo {
+    @apply flex items-center gap-2 text-xl font-semibold text-gray-800;
+  }
+
+  .pagina-funcionarios-icone {
+    @apply text-blue-600 text-2xl;
+  }
+
+  .pagina-funcionarios-contador {
+    @apply text-sm text-gray-500;
+  }
+
+  .pagina-funcionarios-grid {
+    @apply grid gap-6 sm:grid-cols-2 md:grid-cols-3;
+  }
+
+  .pagina-funcionarios-loading {
+    @apply container mx-auto px-4 py-8 text-center text-gray-600;
+  }
+
+  .pagina-funcionarios-error {
+    @apply container mx-auto px-4 py-8 text-center text-red-600;
+  }
+
+  .pagina-funcionarios-error-titulo {
+    @apply font-semibold;
+  }
+
+  .pagina-funcionarios-error-descricao {
+    @apply text-sm;
+  }
+}
+
+/* =================================
+   Página Home
+   ================================= */
+@layer components {
+  .pagina-home {
+    @apply container mx-auto px-4 py-10;
+  }
+
+  .home-hero {
+    @apply text-center mb-12;
+  }
+
+  .home-imagem {
+    @apply mx-auto mb-6 rounded-lg shadow-md max-w-full h-auto max-h-80 object-cover;
+  }
+
+  .home-titulo {
+    @apply text-2xl font-bold text-blue-600 mb-2;
+  }
+
+  .home-subtitulo {
+    @apply text-gray-600 max-w-2xl mx-auto;
+  }
+
+  .home-cards {
+    @apply space-y-6 max-w-2xl mx-auto;
+  }
+
+  .home-card {
+    @apply bg-white rounded-lg shadow-sm p-6;
+  }
+
+  .home-card-titulo {
+    @apply text-lg font-semibold text-gray-800 mb-2;
+  }
+
+  .home-card-descricao {
+    @apply text-gray-600 text-sm;
+  }
+}
